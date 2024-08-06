@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Propelrr Assessment</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen">
     <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
@@ -20,14 +21,16 @@
         </form>
 
         <?php
-        function fibonacci_sequence($n) {
-            $fib = [0, 1];
-            
-            for ($i = 2; $i < $n; $i++) {
-                $fib[] = $fib[$i - 1] + $fib[$i - 2];
+        function fibonacci($n) {
+            if ($n < 1 || $n > 20) {
+                return "Input must be between 1 and 20.";
             }
 
-            return $fib;
+            if ($n == 1 || $n == 2) {
+                return 1;
+            }
+
+            return fibonacci($n - 1) + fibonacci($n - 2);
         }
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -36,8 +39,7 @@
             if ($number < 1 || $number > 20) {
                 echo "<p class='text-red-500 mt-4'>Input must be between 1 and 20.</p>";
             } else {
-                $sequence = fibonacci_sequence($number); // Get the Fibonacci sequence
-                $result = implode(", ", $sequence); // Convert array to comma-separated string
+                $result = fibonacci($number); // Calculate Fibonacci number
                 echo "<h2 class='text-xl font-semibold text-gray-800 mt-4'>Result: $result</h2>";
             }
         }
